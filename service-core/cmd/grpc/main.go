@@ -10,13 +10,11 @@ import (
 	"google.golang.org/grpc"
 )
 
-
-
 func main() {
 
-	fmt.Println("Start gRPC server!")
+	fmt.Println("Start gRPC server on port 3000!")
 
-	lis, err := net.Listen("tcp", "0.0.0.0:9000")
+	lis, err := net.Listen("tcp", "0.0.0.0:3000")
 	if err != nil {
 		log.Fatal("error to listen server in port")
 	}
@@ -25,8 +23,7 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterUserServiceServer(grpcServer, server )
-
+	pb.RegisterUserServiceServer(grpcServer, server)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal("Erro ao iniciar server gRPC")
