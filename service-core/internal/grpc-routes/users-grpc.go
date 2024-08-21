@@ -34,6 +34,7 @@ func (s *Server) Create(ctx context.Context, req *pb.CreateUserRequest) (*pb.Cre
 
 	res.Message = "Usuário criado com sucesso"
 	res.Status = 201
-
+	
 	return res, nil
+
 }

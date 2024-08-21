@@ -1,11 +1,52 @@
 version: '3.9'
 
 services:
+  service-core-db:
+    image: postgres:latest
+    container_name: service-core-db
+    ports:
+      - ${DATABASE_PORT:-5432}:5432
+    networks:
+      - service-core-backend
+    volumes:
+      - ./data/service-core-db:/var/lib/postgresql/data
+  
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+
+  service-core-migrate:
+    image:  migrate/migrate
+    container_name: service-core-migrate
+    volumes:
+      - ./service-core/migrations:/migrations
+    depends_on:
+      - service-core-db
+    networks:
+      - service-core-backend
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@service-core-db:${DATABASE_PORT}/${DATABASE_NAME}?sslmode=disable",
+        "up",
+      ]
+
   service-core:
     container_name: service-core 
     build: ./service-core
     ports: 
       - 3000:3000
+    depends_on:
+      - service-core-db
+      - service-core-migrate
+    networks:
+      - service-core-backend
     volumes:
       - ./service-core:/app
 
+networks:
+  service-core-backend:
+    driver: "bridge"
