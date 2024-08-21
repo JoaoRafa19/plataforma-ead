@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+message CreateUserRequest {
+    string name = 1;
+    string email = 2;
+    string phone = 3;
+    string password = 4;
+}
+
+message CreateUserResponse {
+    int32 status = 1;
+    string message = 2;
+
+}
+
+service UserService {
+    rpc Create(CreateUserRequest) returns (CreateUserResponse) {};
+}

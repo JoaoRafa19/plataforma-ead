@@ -8,10 +8,10 @@ import (
 
 type User struct {
 	BaseEntity
-	Name     string
-	Email    string
-	Phone    string
-	Password string
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Password string 
 }
 
 func NewUser(Name string, Email string, Password string, Phone string) (*User, error) {
