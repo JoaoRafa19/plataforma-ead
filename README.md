@@ -1,5 +1,16 @@
 # Plataforma EAD
 
+## __Observação__
+É necessário criar o arquivo .env na raiz do projeto e na pasta service core com as variáveis de ambiente necessárias
+ex.:
+```.env
+DATABASE_PORT=5432
+DATABASE_USER="postgres"
+DATABASE_PASSWORD="123456789"
+DATABASE_NAME="plataforma-ead"
+DATABASE_HOST="service-core-db"
+```
+
 ### Comandos principais
 ***Rodando o container***
 ```shell
