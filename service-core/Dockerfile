@@ -9,6 +9,6 @@ RUN go install github.com/air-verse/air@latest
 
 COPY . .
 
-EXPOSE 9000
+EXPOSE 3000
 
 CMD [ "air" ]
